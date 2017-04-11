@@ -1,0 +1,5 @@
+# gpg.yaml
+# Mix of GPG and non-GPG data
+---
+plaintext: "you can see me"
+a_secret_key:

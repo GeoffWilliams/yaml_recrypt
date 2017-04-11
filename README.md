@@ -1,8 +1,7 @@
 # YamlRecrypt
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/yaml_recrypt`. To experiment with that code, run `bin/console` for an interactive prompt.
+Handy small tool for parsing YAML files and finding the keys that are encrypted with GPG.  These can then be decrypted and then rencrypted with eyaml before saving the file again.  This can be useful if you have 300 or so GPG encrypted hiera values and you realise that Hiera-GPG is [EOLed](https://github.com/crayfishx/hiera-gpg) and may or may not work
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
@@ -33,4 +32,3 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/yaml_recrypt.
-

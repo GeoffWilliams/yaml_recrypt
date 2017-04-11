@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+require 'escort'
+require 'yaml_recrypt'
+require 'yaml_recrypt/version'
+
+ARGV.unshift('convert')
+Escort::App.create do |app|
+  app.version Yamljson::VERSION
+  app.summary "yaml_recrypt"
+  app.description "convert eyaml-gpg encrypted data to regular eyaml"
+
+  app.command :convert do |command|
+    command.summary "recursively convert all eyaml-gpg encrypted files to be regular eyaml"
+    command.options do |opts|
+      opts.opt(:eyaml_pub_key,
+        'Public eyaml key to re-encrypt data against',
+        :long => '--eyaml-pub-key',
+        :type => :string,
+      )
+      opts.opt(:gpg_private_key,
+        'Private GPG key to decrypt original values',
+        :long => '--gpg-private-key',
+        :type => :string,
+      )
+    end
+    command.action do |options, arguments|
+      eyaml_pub_key   = options[:global][:commands][:convert][:options][:eyaml_pub_key]
+      gpg_private_key = options[:global][:commands][:convert][:options][:gpg_private_key]
+      if eyaml_pub_key == nil or gpg_private_key == nil
+        raise "Both --eyaml-pub-key and --gpg-private-key must be specified"
+      else
+        puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_private_key, yaml_pub_key)
+      end
+    end
+  end
+end
