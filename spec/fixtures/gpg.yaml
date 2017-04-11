@@ -2,4 +2,11 @@
 # Mix of GPG and non-GPG data
 ---
 plaintext: "you can see me"
-a_secret_key:
+somewhere:
+  there:
+    is:
+      a:
+        secret: |
+          -----BEGIN PGP MESSAGE-----
+          this is a very secure system.  NSA definitely can't read...
+          -----END PGP MESSAGE-----

@@ -3,9 +3,9 @@ require 'escort'
 require 'yaml_recrypt'
 require 'yaml_recrypt/version'
 
-ARGV.unshift('convert')
+#ARGV.unshift('convert')
 Escort::App.create do |app|
-  app.version Yamljson::VERSION
+  app.version YamlRecrypt::VERSION
   app.summary "yaml_recrypt"
   app.description "convert eyaml-gpg encrypted data to regular eyaml"
 
@@ -29,7 +29,7 @@ Escort::App.create do |app|
       if eyaml_pub_key == nil or gpg_private_key == nil
         raise "Both --eyaml-pub-key and --gpg-private-key must be specified"
       else
-        puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_private_key, yaml_pub_key)
+        puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_private_key, eyaml_pub_key)
       end
     end
   end
