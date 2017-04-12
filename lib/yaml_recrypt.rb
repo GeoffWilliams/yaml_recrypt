@@ -46,9 +46,13 @@ module YamlRecrypt
       }
     elsif value.class == Hash
       value.each { |k,v|
-        r, subtree = descend(gpg_home, eyaml_pub_key, v)
-        value[k] = subtree
-        replaced += r
+        begin
+          r, subtree = descend(gpg_home, eyaml_pub_key, v)
+          value[k] = subtree
+          replaced += r
+        rescue GPGME::Error::NoData
+          raise("Invalid GPG data detected in key #{k}")
+        end
       }
     else
       r, value = process_value(value, gpg_home, eyaml_pub_key)
@@ -88,7 +92,9 @@ module YamlRecrypt
 
 
 
-  def self.recrypt(value, gpg_home, eyaml_pub_key)
-    "HIPOPOTOMUS"
+  def self.recrypt(gpg_ct, gpg_home, eyaml_pub_key)
+    pt = YamlRecrypt::Gpg::decrypt(gpg_ct, gpg_home)
+
+    YamlRecrypt::Eyaml::encrypt(pt, eyaml_pub_key)
   end
 end

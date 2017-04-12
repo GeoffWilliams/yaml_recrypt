@@ -13,7 +13,7 @@ end
 MOCK_GPG_HIERADATA_TESTCASE = 'spec/fixtures/mock_gpg_hieradata'
 MOCK_GPG_HIERADATA_FILE = "#{MOCK_GPG_HIERADATA_TESTCASE}/nesting01/gpg.yaml"
 GPG_HOME = "spec/fixtures/gpghome"
-GPG_ENCRYPTED_FILE='spec/fixtures/plaintext_value.txt.gpg'
+GPG_ENCRYPTED_FILE='spec/fixtures/plaintext_value.txt.asc'
 PLAINTEXT_FILE='spec/fixtures/plaintext_value.txt'
 EYAML_PRV_KEY='spec/fixtures/keys/private_key.pkcs7.pem'
 EYAML_PUB_KEY='spec/fixtures/keys/public_key.pkcs7.pem'
