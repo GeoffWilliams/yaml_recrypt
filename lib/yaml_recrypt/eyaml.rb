@@ -1,6 +1,7 @@
 # sourced from:  https://github.com/voxpupuli/hiera-eyaml
 # file: /hiera/backend/eyaml/encryptors/pkcs7.rb
 require 'openssl'
+require 'base64'
 module YamlRecrypt
   module Eyaml
 
@@ -10,6 +11,15 @@ module YamlRecrypt
 
       cipher = OpenSSL::Cipher::AES.new(256, :CBC)
       OpenSSL::PKCS7::encrypt([public_key_x509], pt, cipher, OpenSSL::PKCS7::BINARY).to_der
+    end
+
+    def self.encrypt_and_encode(pt, eyaml_pub_key)
+      # eyaml has its own YAML encryption standard which we must cludge/copy ;-)
+      # basically we wedge the cyphertext inside `ENC[...]` with some metadata
+      # see /lib/hiera/backend/eyaml/parser/encrypted_tokens.rb (to_encrypted)
+      ct = encrypt(pt, eyaml_pub_key)
+      ct64 = Base64.encode64(ct).strip
+      return "ENC[PKCS7,#{ct64}]"
     end
 
 

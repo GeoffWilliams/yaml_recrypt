@@ -1,4 +1,7 @@
 require "yaml_recrypt/version"
+require "yaml_recrypt/gpg"
+require "yaml_recrypt/eyaml"
+require "yaml_recrypt/postprocess"
 require 'find'
 require 'escort'
 require 'yaml'
@@ -28,6 +31,10 @@ module YamlRecrypt
 
       # save the new data
       File.open(filename, 'w') {|f| f.write hash_wip.to_yaml }
+
+      # Post-process the data to convert yaml multi-line blocks into yaml folded
+      # blocks
+      YamlRecrypt::PostProcess::postprocess(filename)
     end
   end
 
@@ -84,6 +91,6 @@ module YamlRecrypt
   def self.recrypt(gpg_ct, gpg_home, eyaml_pub_key)
     pt = YamlRecrypt::Gpg::decrypt(gpg_ct, gpg_home)
 
-    YamlRecrypt::Eyaml::encrypt(pt, eyaml_pub_key)
+    YamlRecrypt::Eyaml::encrypt_and_encode(pt, eyaml_pub_key).strip
   end
 end
