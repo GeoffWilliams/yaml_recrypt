@@ -10,17 +10,21 @@ require 'gpgme'
 require 'openssl'
 
 module YamlRecrypt
-  GPG_MAGIC   = "-----BEGIN PGP MESSAGE-----"
-  BACKUP_EXT  = "orig"
+  GPG_MAGIC       = "-----BEGIN PGP MESSAGE-----"
+  BACKUP_EXT      = "orig"
+  # match /etc/puppet and /etc/puppetlabs to protect all customers
+  REAL_PUPPET_DIR = "/etc/puppet"
 
   def self.recrypt_file(filename, gpg_home, eyaml_pub_key)
+    if filename.start_with? REAL_PUPPET_DIR
+      abort("Detected being run from the #{REAL_PUPPET_DIR}*! Refusing to run to avoid trashing live puppet master")
+    end
     Escort::Logger.output.puts "Processing #{filename}"
 
     # load the yaml into a hash
     hash_wip  = YAML.load(File.readlines(filename).join("\n"))
 
     # descend every key until a string (or terminal) is reached
-    #converted =
     replaced, converted = descend(gpg_home, eyaml_pub_key, hash_wip)
 
     if replaced > 0

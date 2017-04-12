@@ -3,7 +3,10 @@ require 'escort'
 require 'yaml_recrypt'
 require 'yaml_recrypt/version'
 
-#ARGV.unshift('convert')
+# help message if nothing selected
+if ARGV.size == 0
+  ARGV.unshift('help')
+end
 Escort::App.create do |app|
   app.version YamlRecrypt::VERSION
   app.summary "yaml_recrypt"
