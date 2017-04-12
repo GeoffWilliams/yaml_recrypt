@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.add_dependency "escort", "0.4.0"
+  spec.add_dependency "gpgme", "2.0.12"
 end

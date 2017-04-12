@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/GeoffWilliams/yaml_recrypt.svg?branch=master)](https://travis-ci.org/GeoffWilliams/yaml_recrypt)
 # YamlRecrypt
 
 Handy small tool for parsing YAML files and finding the keys that are encrypted with GPG.  These can then be decrypted and then rencrypted with eyaml before saving the file again.  This can be useful if you have 300 or so GPG encrypted hiera values and you realise that Hiera-GPG is [EOLed](https://github.com/crayfishx/hiera-gpg) and may or may not work
