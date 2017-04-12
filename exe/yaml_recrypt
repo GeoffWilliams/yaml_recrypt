@@ -5,7 +5,7 @@ require 'yaml_recrypt/version'
 
 # help message if nothing selected
 if ARGV.size == 0
-  ARGV.unshift('help')
+  ARGV.unshift('--help')
 end
 Escort::App.create do |app|
   app.version YamlRecrypt::VERSION
