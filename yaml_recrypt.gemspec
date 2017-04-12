@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = YamlRecrypt::VERSION
   spec.authors       = ["Geoff Williams"]
   spec.email         = ["geoff@geoffwilliams.me.uk"]
-
+  spec.license       = "MIT"
   spec.summary       = %q{ Decrypt GPG encrypted yaml file keys and re-encrypt them using eyaml since GPG backend is EOLed (Puppet/Hiera) }
   spec.homepage      = "https://github.com/GeoffWilliams/yaml_recrypt"
 
