@@ -19,10 +19,6 @@ module YamlRecrypt
     # descend every key until a string (or terminal) is reached
     #converted =
     replaced, converted = descend(gpg_home, eyaml_pub_key, hash_wip)
-    require 'pp'
-
-    #PP.pp(converted)
-    #PP.pp(hash)
 
     if replaced > 0
       Escort::Logger.output.puts "*** updated #{replaced} values in #{filename} ****"
@@ -84,13 +80,6 @@ module YamlRecrypt
     end
 
   end
-
-  def self.decrypt_gpg(ct, gpg_home)
-    decrypt(ct, gpg_home)
-  end
-
-
-
 
   def self.recrypt(gpg_ct, gpg_home, eyaml_pub_key)
     pt = YamlRecrypt::Gpg::decrypt(gpg_ct, gpg_home)
