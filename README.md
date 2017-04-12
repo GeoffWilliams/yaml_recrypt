@@ -29,7 +29,7 @@ To do this, `yaml_recrypt` needs:
 * Your GPG PKI (directory of gpg keychains, etc - usually at `~/.gpg`)
 * Your hiera-eyaml public key (usually at `/etc/puppetlabs/puppet/keys`)
 
-`yaml_recrypt` should not be run inside the `/etc/puppet*` directory to avoid the risk of updating files which are currently in use.  Ideally, data should be copied off the puppet server for rencryption (eg a workstation - must be running Linux) as:
+`yaml_recrypt` should not be run inside the `/etc/puppet*` directory to avoid the risk of updating files which are currently in use.  Ideally, data should be copied off the puppet server for re-encryption (eg a workstation - must be running Linux) as:
 * This prevents altering the `gems` installed on the production master
 * The conversion can be done in a safe and controlled environment
 * Files can be easilty deleted afterwards
