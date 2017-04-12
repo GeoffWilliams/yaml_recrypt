@@ -1,3 +1,5 @@
+# Sourced from https://github.com/sihil/hiera-eyaml-gpg
+# file: /lib/hiera/backend/eyaml/encryptors/gpg.rb
 module YamlRecrypt
   module Gpg
     def self.gnupghome
@@ -16,8 +18,8 @@ module YamlRecrypt
 
 
 
-    def self.decrypt(ciphertext, gpg_private_key)
-      gnupghome = gpg_private_key
+    def self.decrypt(ciphertext, gpg_home)
+      gnupghome = gpg_home
 
       GPGME::Engine.home_dir = gnupghome
 

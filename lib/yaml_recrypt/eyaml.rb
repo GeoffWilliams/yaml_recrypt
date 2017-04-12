@@ -1,3 +1,5 @@
+# sourced from:  https://github.com/voxpupuli/hiera-eyaml
+# file: /hiera/backend/eyaml/encryptors/pkcs7.rb
 require 'openssl'
 module YamlRecrypt
   module Eyaml

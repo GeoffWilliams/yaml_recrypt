@@ -17,19 +17,19 @@ Escort::App.create do |app|
         :long => '--eyaml-pub-key',
         :type => :string,
       )
-      opts.opt(:gpg_private_key,
-        'Private GPG key to decrypt original values',
-        :long => '--gpg-private-key',
+      opts.opt(:gpg_home,
+        'Path to the GPG homedir (usually ~/.gpg)',
+        :long => '--gpg-home',
         :type => :string,
       )
     end
     command.action do |options, arguments|
       eyaml_pub_key   = options[:global][:commands][:convert][:options][:eyaml_pub_key]
-      gpg_private_key = options[:global][:commands][:convert][:options][:gpg_private_key]
-      if eyaml_pub_key == nil or gpg_private_key == nil
+      gpg_home = options[:global][:commands][:convert][:options][:gpg_home]
+      if eyaml_pub_key == nil or gpg_home == nil
         raise "Both --eyaml-pub-key and --gpg-private-key must be specified"
       else
-        puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_private_key, eyaml_pub_key)
+        puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_home, eyaml_pub_key)
       end
     end
   end
