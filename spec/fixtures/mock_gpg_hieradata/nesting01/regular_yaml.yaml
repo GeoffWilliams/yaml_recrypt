@@ -1,0 +1,24 @@
+---
+# A comment
+something::datasources:
+  - name: 'blah blah'
+    description: 'kjadlk lkjfaksl jfads'
+    sourceType: 'LocalFile'
+    pathExpression: 'C:\\windows\\log1.log'
+    category: 'something/core/cheeseburger'
+  - name: 'blah2 blah2'
+    description: 'second element'
+    sourceType: 'LocalFile'
+    pathExpression: 'C:\\windows\\log2.log'
+    category: 'something/something/darkside'
+
+
+puppet::environment: 'reinstall'
+multline_value: |
+  this is my
+  mult line value
+  Ya better not mess with it!
+
+folded_value: >
+  this is my folded value
+  dont touch this either!

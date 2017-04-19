@@ -24,13 +24,13 @@ RSpec.describe YamlRecrypt do
     tmpdir = Dir.mktmpdir
     puts tmpdir
 
-    # copy the testcase in
-    FileUtils.cp(MOCK_GPG_HIERADATA_FILE, tmpdir)
+    # copy the testcases in
+    Dir.glob("#{MOCK_GPG_HIERADATA_TESTCASE}/*") {|f| FileUtils.cp_r File.expand_path(f), tmpdir }
     YamlRecrypt::recrypt_r(tmpdir, GPG_HOME, EYAML_PUB_KEY)
 
     # Check we have 3 instances of '^ENC'
     file_basename   = File.basename(MOCK_GPG_HIERADATA_FILE)
-    target_file     = File.join(tmpdir,file_basename)
+    target_file     = File.join(tmpdir,'nesting01','gpg.yaml')
     eyaml_instances = File.open(target_file).grep(/ENC\[PKCS7/)
 
     expect(eyaml_instances.size).to be 3

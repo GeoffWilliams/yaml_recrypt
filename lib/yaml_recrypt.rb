@@ -45,18 +45,23 @@ module YamlRecrypt
   def self.descend(gpg_home, eyaml_pub_key, value)
     replaced = 0
     if value.class == Array
-      value = value.map { |e|
-        r, newvalue = process_value(e, gpg_home, eyaml_pub_key)
-        replaced += r
-
-        newvalue
+      i = 0
+      value.each { |v|
+        begin
+          r, subtree  = descend(gpg_home, eyaml_pub_key, v)
+          value[i]    = subtree
+          replaced    += r
+        rescue GPGME::Error::NoData
+          raise("Invalid GPG data detected in element #{i}")
+        end
+        i += 1
       }
     elsif value.class == Hash
       value.each { |k,v|
         begin
-          r, subtree = descend(gpg_home, eyaml_pub_key, v)
-          value[k] = subtree
-          replaced += r
+          r, subtree  = descend(gpg_home, eyaml_pub_key, v)
+          value[k]    = subtree
+          replaced    += r
         rescue GPGME::Error::NoData
           raise("Invalid GPG data detected in key #{k}")
         end
