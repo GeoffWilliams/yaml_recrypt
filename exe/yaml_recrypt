@@ -30,7 +30,7 @@ Escort::App.create do |app|
       eyaml_pub_key   = options[:global][:commands][:convert][:options][:eyaml_pub_key]
       gpg_home = options[:global][:commands][:convert][:options][:gpg_home]
       if eyaml_pub_key == nil or gpg_home == nil
-        raise "Both --eyaml-pub-key and --gpg-private-key must be specified"
+        raise "Both --eyaml-pub-key and --gpg-home must be specified"
       else
         puts YamlRecrypt::recrypt_r(Dir.pwd, gpg_home, eyaml_pub_key)
       end
