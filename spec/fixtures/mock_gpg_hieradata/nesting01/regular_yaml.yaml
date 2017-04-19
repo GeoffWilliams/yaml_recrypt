@@ -12,6 +12,12 @@ something::datasources:
     pathExpression: 'C:\\windows\\log2.log'
     category: 'something/something/darkside'
 
+profiles::darkside::deathstar:
+  'exhaust_port':
+    radius: 7
+    locked: false
+    wall_thickness: 3.14
+
 
 puppet::environment: 'reinstall'
 multline_value: |
