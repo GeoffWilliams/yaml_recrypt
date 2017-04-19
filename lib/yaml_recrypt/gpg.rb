@@ -48,8 +48,11 @@ module YamlRecrypt
         txt.seek 0
         txt.read
       else
-        warn("No usable keys found in #{gnupghome}. Check :gpg_gnupghome value in hiera.yaml is correct")
-        raise ArgumentError, "No usable keys found in #{gnupghome}. Check :gpg_gnupghome value in hiera.yaml is correct"
+        raise "No usable keys found in #{gpg_home}.  Things to check: permissions, "\
+        "correct paths, file integrity, trying to use an older gpg to read files "\
+        "from a newer one (export first).  Some verions of gpg insist on having the "\
+        "--gpg-home directory as ~/.gnupg so please try moving your directory of gpg "\
+        "stuff to that location"
       end
     end
 
