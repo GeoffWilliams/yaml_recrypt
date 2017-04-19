@@ -51,8 +51,9 @@ module YamlRecrypt
           r, subtree  = descend(gpg_home, eyaml_pub_key, v)
           value[i]    = subtree
           replaced    += r
-        rescue GPGME::Error::NoData
-          raise("Invalid GPG data detected in element #{i}")
+        rescue GPGME::Error::NoData => e
+          warn("Invalid GPG data detected in element #{i} or damaged cypher ")
+          raise e
         end
         i += 1
       }
@@ -63,7 +64,8 @@ module YamlRecrypt
           value[k]    = subtree
           replaced    += r
         rescue GPGME::Error::NoData
-          raise("Invalid GPG data detected in key #{k}")
+          warn("Invalid GPG data detected in element #{k} or damaged cypher ")
+          raise e
         end
       }
     else
