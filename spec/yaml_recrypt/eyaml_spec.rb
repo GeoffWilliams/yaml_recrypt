@@ -4,7 +4,7 @@ require "yaml_recrypt/eyaml"
 RSpec.describe YamlRecrypt::Eyaml do
 
   it "encrypts eyaml correctly" do
-    pt = File.readlines(PLAINTEXT_FILE).join("\n")
+    pt = File.open(PLAINTEXT_FILE, 'r') { |f| f.read }
     encrypted = YamlRecrypt::Eyaml.encrypt(pt, EYAML_PUB_KEY)
 
     # test by decrypting the cypertext and checking it matches the original

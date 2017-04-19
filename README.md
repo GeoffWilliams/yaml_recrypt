@@ -50,6 +50,13 @@ A conversion workflow should look something like this:
 5.  Check results and commit changed data back to git
 6.  When happy with conversion results, don't forget to remove the old GPG keychain files from your system - it's a security risk, to leave they lying around
 
+## Cleaning up the `.orig` files
+`yaml_recrypt` will create a `.orig` file for every file it changes "just in case" (TM).  Once your happy everything worked correctly, the following command will delete them all from the current directory downwards:
+
+```shell
+find . -name '*.orig' -exec rm {} \;
+  ```
+
 ## Development and Contributing
 There are a few additional things this codebase could be extended to cover if there's interest:
 * hiera-gpg (whole file encrypted) to hiera-eyaml

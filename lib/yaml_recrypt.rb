@@ -22,7 +22,8 @@ module YamlRecrypt
     Escort::Logger.output.puts "Processing #{filename}"
 
     # load the yaml into a hash
-    hash_wip  = YAML.load(File.readlines(filename).join("\n"))
+    raw_data = File.open(filename, 'r') { |f| f.read }
+    hash_wip  = YAML.load(raw_data)
 
     # descend every key until a string (or terminal) is reached
     replaced, converted = descend(gpg_home, eyaml_pub_key, hash_wip)
@@ -78,18 +79,28 @@ module YamlRecrypt
 
   def self.process_value(value, gpg_home, eyaml_pub_key)
     changed = 0
+
+    # fix ascii text blocks that have been corrupted by extra newlines
+
+    #end
     if value.class == String and ! value.empty?
       split = value.split("\n")
 
-      # PGP values are always broken onto newlines
-      if split[0].strip == '' and split[1].strip == GPG_MAGIC
-
-        # yaml and its crazy space encoding rules mean that sometimes you may
-        # get double whitespace IF you've done something clever like put the
-        # gpg version in your ascii armor.  See:
-        # http://stackoverflow.com/a/21699210/3441106
-        # for the gory details
-        value = value.gsub(/\n\n/,"\n")
+      # scan the entire block looking for the magic marker to fix variable
+      # leading whitespace breaking detection
+      gpg_value = false
+      i = 0
+      while ! gpg_value and i < split.size
+        if split[i].strip == GPG_MAGIC
+          gpg_value = true
+        elsif split[i] =~ /[^\s]+/
+          # we found non-whitespace before our magic marker, this isn't GPG data
+          # so break out of the loop
+          i = split.size
+        end
+        i += 1
+      end
+      if gpg_value
         value = recrypt(value, gpg_home, eyaml_pub_key)
         changed = 1
       end

@@ -7,7 +7,8 @@ RSpec.describe YamlRecrypt do
   end
 
   it "detects correct replacement count" do
-    hash_wip  = YAML.load(File.readlines(MOCK_GPG_HIERADATA_FILE).join("\n"))
+    raw_data = File.open(MOCK_GPG_HIERADATA_FILE, 'r') { |f| f.read }
+    hash_wip  = YAML.load(raw_data)
     gpg_home = GPG_HOME
     eyaml_pub_key = EYAML_PUB_KEY
 
@@ -39,6 +40,22 @@ RSpec.describe YamlRecrypt do
     expect(File.exists?("#{target_file}.orig")).to be true
 
     # FileUtils.rm_rm(tmpdir)
+  end
+
+  it "does not alter other embeded GPG messages (public key)" do
+    raw_data = File.open(MOCK_GPG_HIERADATA_FILE, 'r') { |f| f.read }
+    hash_wip  = YAML.load(raw_data)
+    gpg_home = GPG_HOME
+    eyaml_pub_key = EYAML_PUB_KEY
+
+    r, converted = YamlRecrypt.descend(gpg_home, eyaml_pub_key, hash_wip)
+
+    cert_asc = File.open(GPG_CERT_FILE, 'r') { |f| f.read }
+
+    # should be the exact same text
+    expect(converted["should_be_left_alone"].strip).to eq cert_asc.strip
+
+
   end
 
 end
