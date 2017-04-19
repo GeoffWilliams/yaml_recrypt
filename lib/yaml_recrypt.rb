@@ -83,6 +83,13 @@ module YamlRecrypt
 
       # PGP values are always broken onto newlines
       if split[0].strip == '' and split[1].strip == GPG_MAGIC
+
+        # yaml and its crazy space encoding rules mean that sometimes you may
+        # get double whitespace IF you've done something clever like put the
+        # gpg version in your ascii armor.  See:
+        # http://stackoverflow.com/a/21699210/3441106
+        # for the gory details
+        value = value.gsub(/\n\n/,"\n")
         value = recrypt(value, gpg_home, eyaml_pub_key)
         changed = 1
       end

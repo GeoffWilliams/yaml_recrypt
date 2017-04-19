@@ -8,6 +8,7 @@ somewhere:
       a:
         secret: |
           -----BEGIN PGP MESSAGE-----
+          Version: GnuPG v2.0.14 (GNU/Linux)
 
           hQEMA47VD8gXgKSUAQf/Ts6YnjW3/qOT+NnOEQI/LrxujmW/f+Jy/lPXNfR+yR1Q
           bUKJH5c+W7UkG1PTjj2RyeozmGt6CgRCdV++D9x4V9b3RqYKPAcI74G17XvBiMBn
@@ -19,10 +20,12 @@ somewhere:
           kXUMgCjx3Yd98BI49EMc+eDgINgRBHxcW0LtCw63V6tB1YeVYFnmwLOT7w==
           =ycS1
           -----END PGP MESSAGE-----
+
       arrayof:
         secret:
           - |
             -----BEGIN PGP MESSAGE-----
+            Version: GnuPG v2.0.14 (GNU/Linux)
 
             hQEMA47VD8gXgKSUAQf/Ts6YnjW3/qOT+NnOEQI/LrxujmW/f+Jy/lPXNfR+yR1Q
             bUKJH5c+W7UkG1PTjj2RyeozmGt6CgRCdV++D9x4V9b3RqYKPAcI74G17XvBiMBn
