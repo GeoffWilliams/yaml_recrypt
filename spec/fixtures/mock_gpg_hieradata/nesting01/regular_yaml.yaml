@@ -17,6 +17,7 @@ profiles::darkside::deathstar:
     radius: 7
     locked: false
     wall_thickness: 3.14
+    plan_filename: ''
 
 
 puppet::environment: 'reinstall'

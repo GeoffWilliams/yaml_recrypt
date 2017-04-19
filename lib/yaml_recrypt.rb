@@ -78,7 +78,7 @@ module YamlRecrypt
 
   def self.process_value(value, gpg_home, eyaml_pub_key)
     changed = 0
-    if value.class == String
+    if value.class == String and ! value.empty?
       split = value.split("\n")
 
       # PGP values are always broken onto newlines
